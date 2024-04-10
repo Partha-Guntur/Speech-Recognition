@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page</title>
+    <!-- <link rel="stylesheet" href="main.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: antiquewhite;
+        }
+        h1{
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .divClass1{
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Speech Recognition</h1>
+    <div class="divClass1">
+        <h2>Audio File</h2>
+        <audio controls id="audio-player">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audio-player');
+
+        // Fetch the audio file with authentication
+        fetch('https://cdn.assemblyai.com/upload/c1848340-fb5c-462a-ad94-b8191c81672f', {
+            headers: {
+                'Authorization': 'ba157cb544c3448eb90c7e607570331e'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const audioURL = URL.createObjectURL(blob);
+            audioPlayer.src = audioURL;
+        })
+        .catch(error => {
+            console.error('Error fetching audio:', error);
+        });
+    </script>
+</body>
+</html>
